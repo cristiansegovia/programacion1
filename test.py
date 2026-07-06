@@ -126,7 +126,7 @@ def eliminar_libro(libro_id: int, username: str = Depends(get_current_user)):
     if libro is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Libro no encontrado",
+            detail="Libro no encontrado: Error 404",
         )
 
     return {"mensaje": "Libro eliminado correctamente", "libro": libro}
