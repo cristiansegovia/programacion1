@@ -49,7 +49,7 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
     if not username:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Token inválido o expirado",
+            detail="Token expirado!!!",
         )
     return username
 
