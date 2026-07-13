@@ -53,11 +53,6 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
         )
     return username
 
-# 3. Endpoint protegido
-@app.get("/ruta-protegida")
-def read_protected_data(username: str = Depends(get_current_user)):
-    return {"mensaje": f"Hola {username}, tienes acceso a estos datos secretos."}
-
 # 4. Alta de servidores protegida por token, usando parámetros de consulta
 @app.post("/servidores", status_code=status.HTTP_201_CREATED)
 def crear_servidor(
