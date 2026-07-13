@@ -58,7 +58,24 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
 def read_protected_data(username: str = Depends(get_current_user)):
     return {"mensaje": f"Hola {username}, tienes acceso a estos datos secretos."}
 
-# 4. Alta de servidores protegida por token, usando parámetros de consulta
+# 4. Obtener servidores con estado Activo
+@app.get("/servidores-activos")
+def obtener_servidores_activos():
+    try:
+        with open('servidores.json', 'r') as file:
+            servidores = json.load(file)
+    except FileNotFoundError:
+        return {"mensaje": "No hay servidores registrados."}
+
+    servidores_activos = [
+        servidor
+        for servidor in servidores.values()
+        if isinstance(servidor, dict) and servidor.get("estado", "").lower() == "activo"
+    ]
+
+    return {"servidores_activos": servidores_activos}
+
+# 5. Alta de servidores protegida por token, usando parámetros de consulta
 @app.post("/servidores", status_code=status.HTTP_201_CREATED)
 def crear_servidor(
     ip: str = Query(..., min_length=7),
