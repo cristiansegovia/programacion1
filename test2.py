@@ -65,7 +65,7 @@ def obtener_servidores_activos():
         with open('servidores.json', 'r') as file:
             servidores = json.load(file)
     except FileNotFoundError:
-        return {"mensaje": "No hay servidores registrados."}
+        return {"mensaje": "404 No Encontrado"}
 
     servidores_activos = [
         servidor
